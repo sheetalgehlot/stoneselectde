@@ -26,6 +26,7 @@ export const registerController = async (req, res) => {
     if (!answer) {
       return res.send({ message: "Answer is Required" });
     }
+    
     //check user
     const exisitingUser = await userModel.findOne({ email });
     //exisiting user
@@ -41,22 +42,21 @@ export const registerController = async (req, res) => {
     const user = await new userModel({
       name,
       email,
+      password: hashedPassword,
       phone,
       address,
-      password: hashedPassword,
       answer,
-    }).save();
-
+    }).save(); 
     res.status(201).send({
       success: true,
       message: "User Register Successfully",
-      user,
+      user
     });
   } catch (error) {
     console.log(error);
     res.status(500).send({
       success: false,
-      message: "you bitch Error in Registeration",
+      message: "Error in Registration",
       error,
     });
   }
@@ -121,7 +121,7 @@ export const forgotPasswordController = async (req, res) => {
   try {
     const { email, answer, newPassword } = req.body;
     if (!email) {
-      res.status(400).send({ message: "Emai is required" });
+      res.status(400).send({ message: "Email is required" });
     }
     if (!answer) {
       res.status(400).send({ message: "answer is required" });
@@ -148,7 +148,7 @@ export const forgotPasswordController = async (req, res) => {
     console.log(error);
     res.status(500).send({
       success: false,
-      message: "Something went wrong",
+      message: "Something went wrongggggggggggggggggggggggggggggggggggggg",
       error,
     });
   }
